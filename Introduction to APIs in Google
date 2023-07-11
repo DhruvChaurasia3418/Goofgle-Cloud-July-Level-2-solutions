@@ -1,0 +1,26 @@
+
+gcloud services enable fitness.googleapis.com
+
+gcloud services enable storage-api.googleapis.com
+
+nano values.json
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+add code to file:
+
+{  "name": "BUCKET",
+   "location": "us",
+   "storageClass": "multi_regional"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+export OAUTH2_TOKEN=<YOUR_TOKEN>
+
+
+export PROJECT_ID=$(gcloud config get-value project)
+curl -X POST --data-binary @values.json \
+    -H "Authorization: Bearer $OAUTH2_TOKEN" \
+    -H "Content-Type: application/json" \
+    "https://www.googleapis.com/storage/v1/b?project=$PROJECT_ID"
